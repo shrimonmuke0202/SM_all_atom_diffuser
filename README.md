@@ -1,8 +1,8 @@
 # All-atom Diffusion Transformers
 
-Code for the paper [*"All-atom Diffusion Transformers: Unified generative modelling of molecules and materials"*](), by [Chaitanya K. Joshi](https://www.chaitjo.com/), [Xiang Fu](https://xiangfu.co/), [Yi-Lun Liao](https://www.linkedin.com/in/yilunliao), [Vahe Gharakhanyan](https://gvahe.github.io/), [Benjamin Kurt Miller](https://www.mathben.com/), [Anuroop Sriram*](https://anuroopsriram.com/), and [Zachary W. Ulissi*](https://zulissi.github.io/) from FAIR Chemistry at Meta (* Joint last author). 
+Code for the paper [*"All-atom Diffusion Transformers: Unified generative modelling of molecules and materials"*](https://www.arxiv.org/abs/2503.03965), by [Chaitanya K. Joshi](https://www.chaitjo.com/), [Xiang Fu](https://xiangfu.co/), [Yi-Lun Liao](https://www.linkedin.com/in/yilunliao), [Vahe Gharakhanyan](https://gvahe.github.io/), [Benjamin Kurt Miller](https://www.mathben.com/), [Anuroop Sriram*](https://anuroopsriram.com/), and [Zachary W. Ulissi*](https://zulissi.github.io/) from FAIR Chemistry at Meta (* Joint last author). 
 
-All-atom Diffusion Transformers (ADiTs) jointly generating both periodic materials and non-periodic molecular systems using a unified latent diffusion framework:
+All-atom Diffusion Transformers (ADiTs) jointly generate both periodic materials and non-periodic molecular systems using a unified latent diffusion framework:
 - An autoencoder maps a unified, all-atom representations of molecules and materials to a shared latent embedding space; and
 - A diffusion model is trained to generate new latent embeddings that the autoencoder can decode to sample new molecules or materials.
 

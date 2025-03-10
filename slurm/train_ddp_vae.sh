@@ -2,7 +2,7 @@
 
 #!/bin/bash
 #! Name of the job:
-#SBATCH -J ldm
+#SBATCH -J vae
 #SBATCH -o slurm/logs/train%j.out # File to which STDOUT will be written
 #SBATCH -e slurm/logs/train%j.err # File to which STDERR will be written
 
