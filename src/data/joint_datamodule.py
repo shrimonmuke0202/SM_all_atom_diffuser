@@ -7,13 +7,14 @@ from typing import Any, Dict, Optional, Sequence, Tuple
 import torch
 from lightning import LightningDataModule
 from omegaconf import DictConfig
-from src.data.components.mp20_dataset import MP20
-from src.data.components.qmof150_dataset import QMOF150
-from src.utils import pylogger
 from torch.utils.data import ConcatDataset
 from torch_geometric.data import Data
 from torch_geometric.datasets import QM9
 from torch_geometric.loader import DataLoader
+
+from src.data.components.mp20_dataset import MP20
+from src.data.components.qmof150_dataset import QMOF150
+from src.utils import pylogger
 
 log = pylogger.RankedLogger(__name__, rank_zero_only=True)
 
@@ -42,7 +43,7 @@ def custom_transform(data, removeHs=True):
         num_nodes=torch.LongTensor([num_atoms]),  # special attribute used for PyG batching
         spacegroup=torch.zeros(1, dtype=torch.long),  # null spacegroup
         token_idx=torch.arange(num_atoms),
-        dataset_idx=torch.tensor([1], dtype=torch.long),
+        dataset_idx=torch.tensor([1], dtype=torch.long),  # 1 --> indicates non-periodic/molecule
     )
 
 
@@ -171,6 +172,16 @@ class JointDataModule(LightningDataModule):
         self.qmof150_train_dataset = qmof150_dataset[2048:]
         self.qmof150_val_dataset = qmof150_dataset[:1024]
         self.qmof150_test_dataset = qmof150_dataset[1024:2048]
+        # retain subset of dataset; can be used to train on only one dataset, too
+        self.qmof150_train_dataset = self.qmof150_train_dataset[
+            : int(len(self.qmof150_train_dataset) * self.hparams.datasets.qmof150.proportion)
+        ]
+        self.qmof150_val_dataset = self.qmof150_val_dataset[
+            : int(len(self.qmof150_val_dataset) * self.hparams.datasets.qmof150.proportion)
+        ]
+        self.qmof150_test_dataset = self.qmof150_test_dataset[
+            : int(len(self.qmof150_test_dataset) * self.hparams.datasets.qmof150.proportion)
+        ]
 
         if stage is None or stage in ["fit", "validate"]:
             self.train_dataset = ConcatDataset(

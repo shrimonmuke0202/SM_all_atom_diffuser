@@ -7,9 +7,10 @@ from typing import Callable, List, Optional
 import numpy as np
 import torch
 from mofchecker import MOFChecker
-from src.data.components.preprocessing_utils import build_crystal, build_crystal_graph
 from torch_geometric.data import Data, InMemoryDataset
 from tqdm import tqdm
+
+from src.data.components.preprocessing_utils import build_crystal, build_crystal_graph
 
 warnings.simplefilter("ignore", UserWarning)
 warnings.simplefilter("ignore", FutureWarning)
@@ -62,11 +63,24 @@ class QMOF150(InMemoryDataset):
         return ["qmof150.pt"]
 
     def download(self) -> None:
-        raise NotImplementedError(f"Manually download the dataset and place it at {self.root}/.")
+        import zipfile
+
+        from huggingface_hub import hf_hub_download
+
+        hf_hub_download(
+            repo_id="chaitjo/QMOF150_ADiT",
+            filename="raw/relaxed_structures.zip",
+            repo_type="dataset",
+            local_dir=self.root,
+        )
+        with zipfile.ZipFile(
+            os.path.join(self.root, "raw/relaxed_structures.zip"), "r"
+        ) as zip_ref:
+            zip_ref.extractall(os.path.join(self.root, "raw/"))
 
     def process(self) -> None:
-        if os.path.exists(os.path.join(self.root, "all_ori.pt")):
-            cached_data = torch.load(os.path.join(self.root, "all_ori.pt"))
+        if os.path.exists(os.path.join(self.root, "raw/all.pt")):
+            cached_data = torch.load(os.path.join(self.root, "raw/all.pt"))
         else:
             data_dir = os.path.join(self.root, "raw/relaxed_structures")
             filenames = os.listdir(data_dir)
@@ -83,8 +97,9 @@ class QMOF150(InMemoryDataset):
                 result_dict.update(
                     {"qmof_id": filename, "cif": crystal_str, "graph_arrays": graph_arrays}
                 )
-            
-            torch.save(cached_data, os.path.join(self.root, "all_ori.pt"))
+                cached_data.append(result_dict)
+
+            torch.save(cached_data, os.path.join(self.root, "raw/all.pt"))
 
         data_list = []
         for data_dict in cached_data:
@@ -126,7 +141,9 @@ class QMOF150(InMemoryDataset):
                         [num_atoms]
                     ),  # special attribute used for PyG batching
                     token_idx=torch.arange(num_atoms),
-                    dataset_idx=torch.tensor([2], dtype=torch.long),
+                    dataset_idx=torch.tensor(
+                        [0], dtype=torch.long
+                    ),  # 0 --> indicates periodic/crystal
                 )
                 # 3D coordinates (NOTE do not zero-center prior to graph construction)
                 data.pos = torch.einsum(
