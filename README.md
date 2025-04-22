@@ -2,6 +2,7 @@
 
 [![arXiv](https://img.shields.io/badge/PDF-arXiv-blue)](https://www.arxiv.org/abs/2503.03965)
 [![Code](https://img.shields.io/badge/Code-GitHub-blue)](https://github.com/facebookresearch/all-atom-diffusion-transformer/)
+[![Weights](https://img.shields.io/badge/Weights-HuggingFace-blue)](https://huggingface.co/chaitjo/all-atom-diffusion-transformer)
 [![X](https://img.shields.io/badge/X_thread-@chaitjo-blue)](https://x.com/chaitjo/status/1899114667219304525)
 [![Slides](https://img.shields.io/badge/Slides-chaitjo.com-blue)](https://www.chaitjo.com/publication/joshi-2025-allatom/All_Atom_Diffusion_Transformers_Slides.pdf)
 
@@ -83,6 +84,19 @@ All our experiments were performed on V100 GPUs. We generally trained all models
 
 **Step 4:** Evaluate trained DiT model for molecule and crystal generation by setting the checkpoint path in `configs/eval_diffusion.yaml` and running `src/eval_diffusion.py`.
 Note that evaluation is best done via wandb sweep (template: `configs/sweep/eval_sweep_template.yaml`) and example script: `slurm/sweep_gpu.sh`. The sweep template requires setting the path to the checkpoint of the DiT to be evaluated (as well as the corresponding VAE) and needs to be started on wandb. Once created, you will get the command to run the sweep based on its wandb id. You can then launch the sweep on your cluster via `slurm/sweep_gpu.sh`.
+
+**Model weights:**
+
+Model weights for ADiT trained jointly on QM9 and MP20 can be downloaded [on HuggingFace](https://huggingface.co/chaitjo/all-atom-diffusion-transformer). 
+Note that these checkpoints are the result of an independent reproduction of this research by Chaitanya K. Joshi, and may not correspond to the exact models/performance metrics reported in the final manuscript.
+
+These checkpoints can be used to run inference as described in Step 4 above. Alternatively, here is a minimal script for loading an ADiT checkpoint:
+```python
+from src.models.ldm_module import LatentDiffusionLitModule
+ckpt_path = "path-to-ckpt-file"
+model = LatentDiffusionLitModule.load_from_checkpoint(ckpt_path)
+model.eval()  # for sampling and inference
+```
 
 ## Project Structure
 
