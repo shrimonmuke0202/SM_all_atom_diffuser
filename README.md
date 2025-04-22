@@ -5,6 +5,10 @@
 [![Weights](https://img.shields.io/badge/Weights-HuggingFace-blue)](https://huggingface.co/chaitjo/all-atom-diffusion-transformer)
 [![X](https://img.shields.io/badge/X_thread-@chaitjo-blue)](https://x.com/chaitjo/status/1899114667219304525)
 [![Slides](https://img.shields.io/badge/Slides-chaitjo.com-blue)](https://www.chaitjo.com/publication/joshi-2025-allatom/All_Atom_Diffusion_Transformers_Slides.pdf)
+<a target="_blank" href="https://colab.research.google.com/drive/1wHXsP0SHZ-Lx6Brgg-osuvTFrWw3M7oW?usp=sharing">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 
 Code for the paper [*"All-atom Diffusion Transformers: Unified generative modelling of molecules and materials"*](https://www.arxiv.org/abs/2503.03965), by [Chaitanya K. Joshi](https://www.chaitjo.com/), [Xiang Fu](https://xiangfu.co/), [Yi-Lun Liao](https://www.linkedin.com/in/yilunliao), [Vahe Gharakhanyan](https://gvahe.github.io/), [Benjamin Kurt Miller](https://www.mathben.com/), [Anuroop Sriram*](https://anuroopsriram.com/), and [Zachary W. Ulissi*](https://zulissi.github.io/) from FAIR Chemistry at Meta (* Joint last author).
 
@@ -88,15 +92,16 @@ Note that evaluation is best done via wandb sweep (template: `configs/sweep/eval
 **Model weights:**
 
 Model weights for ADiT trained jointly on QM9 and MP20 can be downloaded [on HuggingFace](https://huggingface.co/chaitjo/all-atom-diffusion-transformer). 
-Note that these checkpoints are the result of an independent reproduction of this research by Chaitanya K. Joshi, and may not correspond to the exact models/performance metrics reported in the final manuscript.
+Note that these checkpoints are the result of an independent reproduction of this research by Chaitanya K. Joshi, and may not correspond to the exact models/performance metrics reported in the final manuscript. These checkpoints can be used to run inference as described in Step 4 above.
 
-These checkpoints can be used to run inference as described in Step 4 above. Alternatively, here is a minimal script for loading an ADiT checkpoint:
-```python
-from src.models.ldm_module import LatentDiffusionLitModule
-ckpt_path = "path-to-ckpt-file"
-model = LatentDiffusionLitModule.load_from_checkpoint(ckpt_path)
-model.eval()  # for sampling and inference
-```
+Here is a minimal notebook for loading an ADiT checkpoint and sampling some crystals or molecules: 
+<a target="_blank" href="https://colab.research.google.com/drive/1wHXsP0SHZ-Lx6Brgg-osuvTFrWw3M7oW?usp=sharing">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+Examples of 10,000 sampled crystals and molecules are also available on HuggingFace:
+- [Crystals as CIF files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_crystals_mp20.zip)
+- [Molecules as PDB files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_molecules_qm9.zip)
 
 ## Project Structure
 
