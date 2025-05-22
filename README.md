@@ -61,7 +61,7 @@ Our codebase is built upon the [lightning-hydra template](https://github.com/ash
 **Datasets:**
 
 All datasets will be downloaded and processed automatically when running the code for the first time via PyG/HuggingFace:
-- Small molecules: [QM9 on PyG](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.QM9.html) (also [on HuggingFace](https://huggingface.co/datasets/chaitjo/QM9_ADiT) for processed files)
+- Small molecules: [QM9 on PyG](https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.datasets.QM9.html) (also [on HuggingFace](https://huggingface.co/datasets/chaitjo/QM9_ADiT) for processed files) or [GEOM-DRUGS on HuggingFace](https://huggingface.co/datasets/chaitjo/GEOM-DRUGS_ADiT) (includes processed files)
 - Inorganic crystals: [MP20 on HuggingFace](https://huggingface.co/datasets/chaitjo/MP20_ADiT) (includes processed files)
 - Metal-organic frameworks: [QMOF150 on HuggingFace](https://huggingface.co/datasets/chaitjo/QMOF150_ADiT) (includes processed files)
 
@@ -101,8 +101,9 @@ Here is a minimal notebook for loading an ADiT checkpoint and sampling some crys
 </a>
 
 Examples of 10,000 sampled crystals and molecules are also available on HuggingFace:
-- [Crystals as CIF files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_crystals_mp20.zip)
-- [Molecules as PDB files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_molecules_qm9.zip)
+- [Crystals as CIF files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_crystals_mp20.zip) (MP20)
+- [Molecules as PDB files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_molecules_qm9.zip) (QM9)
+- [Molecules as PDB files](https://huggingface.co/chaitjo/all-atom-diffusion-transformer/resolve/main/ADiT_molecules_geom.zip) (GEOM-DRUGS)
 
 ## Project Structure
 
