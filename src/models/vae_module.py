@@ -509,7 +509,7 @@ class VariationalAutoencoderLitModule(LightningModule):
     def on_validation_epoch_start(self) -> None:
         self.on_evaluation_epoch_start(stage="val")
 
-    def validation_step(self, batch: Data, batch_idx: int, dataloader_idx: int) -> None:
+    def validation_step(self, batch: Data, batch_idx: int, dataloader_idx=0) -> None:
         self.evaluation_step(batch, batch_idx, dataloader_idx, stage="val")
 
     def on_validation_epoch_end(self) -> None:
@@ -520,7 +520,7 @@ class VariationalAutoencoderLitModule(LightningModule):
     def on_test_epoch_start(self) -> None:
         self.on_evaluation_epoch_start(stage="test")
 
-    def test_step(self, batch: Data, batch_idx: int, dataloader_idx: int) -> None:
+    def test_step(self, batch: Data, batch_idx: int, dataloader_idx=0) -> None:
         self.evaluation_step(batch, batch_idx, dataloader_idx, stage="test")
 
     def on_test_epoch_end(self) -> None:
