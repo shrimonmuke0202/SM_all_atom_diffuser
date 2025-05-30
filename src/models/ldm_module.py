@@ -369,10 +369,10 @@ class LatentDiffusionLitModule(LightningModule):
         :param batch_idx: The index of the current batch.
         :return: A tensor of losses between model predictions and targets.
         """
-        pdb.set_trace()
+        # pdb.set_trace()
         with torch.no_grad():
             # save masks used to apply augmentations
-            sample_is_periodic = batch.dataset_idx != DATASET_TO_IDX["qm9"]
+            sample_is_periodic = batch.dataset_idx == DATASET_TO_IDX["mp20"]
             node_is_periodic = sample_is_periodic[batch.batch]
 
             if self.hparams.augmentations.frac_coords == True:
