@@ -1,6 +1,6 @@
 _target_: src.models.ldm_module.LatentDiffusionLitModule
 
-autoencoder_ckpt: ""  # path to VAE checkpoint
+autoencoder_ckpt: "/home/kishalay-ng/Shrimon_workplace/SM_all_atom_diffuser/logs/train_autoencoder/runs/_2025-05-29_10-35-41/checkpoints/epoch=4999-step=530000.ckpt"  # path to VAE checkpoint
 
 denoiser:
   _target_: src.models.denoisers.dit.DiT
